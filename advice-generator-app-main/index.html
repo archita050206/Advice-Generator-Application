@@ -7,22 +7,55 @@
   <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
   
   <title>Frontend Mentor | Advice generator app</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
   <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@400..800&family=Grand+Hotel&family=Manrope:wght@200..800&family=Merienda:wght@300..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <style>
-    .attribution { font-size: 11px; text-align: center; }
+    .attribution { font-size: 11px; text-align: center;
+     }
     .attribution a { color: hsl(228, 45%, 44%); }
+    
+.para{
+  font-family: "Manrope", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+}
   </style>
 </head>
-<body>
+<body class="body">
+<div class="h-full">
+  <div class="w-full h-screen bg-[#1f2632] flex items-center">
+    
+    <div class="mx-auto w-[36%] h-[50%] bg-[#323a49] rounded-xl pt-7 relative">
+      <p id="advice-id" class="text-center text-[#52ffa8] py-6 text-lg font-semibold">ADVICE #117</p>
+      <p id="advice-para" class="text-center text-[#cee3e9] para text-[28px] px-10 h-40 ">"It is easy to sit up and take notice, what's difficult is getting up and taking action."</p>
+      <img src="images\pattern-divider-desktop.svg" alt="" class="h-4 my-8 mx-auto">
+    </div>
+    <div id="dice-btn" class="absolute bg-[#52ffa8] size-13 rounded-full px-4 py-4 left-184 bottom-40 hover:shadow-[0_0_25px_#52ffa8] transition duration:300 cursor-pointer
+     "><img src="images\icon-dice.svg" alt="" class="h-5"></div>
 
-  Advice #<!-- Advice ID goes here -->
+  </div>
 
-  "<!-- Advice text goes here -->"
-  
   <div class="attribution">
     Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
     Coded by <a href="#">Your Name Here</a>.
-  </div>
+  </div></div>
+  <script>
+    const id=document.querySelector('#advice-id')
+    const para=document.querySelector('#advice-para')
+    const btn=document.querySelector('#dice-btn')
+    async function change(){
+      const dataFromAPI=await fetch('https://api.adviceslip.com/advice',{cache :"no-cache"})
+      const data= await dataFromAPI.json()
+      id.innerHTML=`ADVICE #${data.slip.id}`
+      para.innerHTML=`"${data.slip.advice}"`
+    }
+    btn.addEventListener('click', change)
+    change()
+  </script>
 </body>
 </html>
